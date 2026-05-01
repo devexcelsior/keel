@@ -999,9 +999,13 @@ describe("Generate E2E Tests", () => {
 	);
 
 	describe.skipIf(!process.env.XIAOMI_API_KEY)(
-		"Xiaomi MiMo Provider (Xiaomi MiMo-V2.5-Pro via OpenAI Completions)",
+		"Xiaomi MiMo Token Plan Provider (Xiaomi MiMo-V2.5-Pro via Anthropic Messages)",
 		() => {
 			const llm = getModel("xiaomi", "mimo-v2.5-pro");
+			const thinkingOptions = {
+				thinkingEnabled: true,
+				reasoningEffort: "high",
+			} satisfies StreamOptionsWithExtras;
 
 			it("should complete basic text generation", { retry: 3 }, async () => {
 				await basicTextGeneration(llm);
@@ -1013,6 +1017,14 @@ describe("Generate E2E Tests", () => {
 
 			it("should handle streaming", { retry: 3 }, async () => {
 				await handleStreaming(llm);
+			});
+
+			it("should handle thinking mode", { retry: 3 }, async () => {
+				await handleThinking(llm, thinkingOptions);
+			});
+
+			it("should handle multi-turn with thinking and tools", { retry: 3 }, async () => {
+				await multiTurn(llm, thinkingOptions);
 			});
 		},
 	);
