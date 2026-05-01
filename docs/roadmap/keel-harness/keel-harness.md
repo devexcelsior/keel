@@ -456,4 +456,6 @@ Step 7: `git status --short`, `git log`, `git ls-remote`
 
 ---
 
+**Shipped**: 2026-05-01 | **Branch**: feature/keel-harness | **ADRs**: 0001
+
 produced-adrs: [0001]
