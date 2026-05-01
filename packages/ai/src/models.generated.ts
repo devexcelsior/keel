@@ -9127,7 +9127,7 @@ export const MODELS = {
 			api: "openai-completions",
 			provider: "openrouter",
 			baseUrl: "https://openrouter.ai/api/v1",
-			compat: {"requiresReasoningContentOnAssistantMessages":true,"reasoningEffortMap":{"minimal":"high","low":"high","medium":"high","high":"high","xhigh":"max"}},
+			compat: {"requiresReasoningContentOnAssistantMessages":true,"thinkingFormat":"deepseek"},
 			reasoning: true,
 			input: ["text"],
 			cost: {
@@ -9145,7 +9145,7 @@ export const MODELS = {
 			api: "openai-completions",
 			provider: "openrouter",
 			baseUrl: "https://openrouter.ai/api/v1",
-			compat: {"requiresReasoningContentOnAssistantMessages":true,"reasoningEffortMap":{"minimal":"high","low":"high","medium":"high","high":"high","xhigh":"max"}},
+			compat: {"requiresReasoningContentOnAssistantMessages":true,"thinkingFormat":"deepseek"},
 			reasoning: true,
 			input: ["text"],
 			cost: {
