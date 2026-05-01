@@ -453,3 +453,7 @@ Step 7: `git status --short`, `git log`, `git ls-remote`
 | Then | `/preflight` (step 1) | **minimal** |
 | Then | `/implement` | **medium** |
 | Then | `/verify` | **minimal** |
+
+---
+
+produced-adrs: [0001]

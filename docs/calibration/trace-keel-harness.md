@@ -216,3 +216,41 @@
 - F29 [portable]: `packages/agent` tests unexpectedly passed completely (42/42), contradicting the step doc's expectation of pre-existing agent failures. Positive signal about harness package health.
 - F30 [model-specific]: Upstream model registry data changed between Step 4 and Step 6, causing `contextWindow` drift in generated file. Build output is time-dependent and may produce spurious diffs in CI.
 
+## Step 7 — step-7-commit-push
+
+**Verified**: 2026-05-01 19:45
+**Phases run**: /preflight (focused), /implement, /verify
+**Verdict**: PASS
+
+### Anti-flattery scan
+
+1. **Implementation drift**: One significant drift and one implicit-but-correct action not in the step doc.
+   - (a) **`git merge --ff-only feature/keel-harness` in the main worktree** (`/home/devex/Projects/keel`) was necessary for push but entirely absent from the step doc. The step doc says "Push to `origin/main`" as if the commit were already on `main`. Because the workflow uses per-feature git worktrees (§8 Post-ship git operations), the commit was created in `feature/keel-harness` worktree and had to be ff-merged to `main` in the sibling worktree before pushing. This is a workflow-mechanics gap in the step doc, not an implementation error — but it is unanticipated work the implementer had to perform.
+   - (b) **Staging used directory-level `git add` commands** (e.g., `git add packages/coding-agent/`, `git add packages/ai/`) rather than per-file `git add <file>` calls. The step doc's AC-7.2b explicitly allows "`git add <directory>` commands" as an alternative to per-file, so this is within spec. Quoted evidence from step doc `Alternatives considered`: "The file count is large but manageable via specific paths or `git add packages/ai/src/ packages/ai/test/ ...`" — the implementation chose the directory-level variant.
+
+2. **Verify-gate evidence**: All gates were well-evidenced. Mechanical checks have full command/exit/verdict/notes. Constraint gate lists every specific `git add` command executed. Invariant gate cites `git log --oneline -3` showing ff-only linear history. No vibe-only passes detected. Structural deviation persists: no separate "Acceptance criteria" gate table (same as Steps 5-6, F22/F26).
+
+3. **Phase budget**: ~20 tool calls across implement + verify, slightly above the 15-20 cap. Justified by: (a) staging 789 files required multiple `git add` commands across directories; (b) initial push failed due to GitHub PAT scope, requiring user intervention + retry cycle; (c) verification had to check both feature worktree and main worktree state. The auth retry consumed ~5 extra tool calls.
+
+4. **Cross-step pattern**:
+   - Positive: git staging discipline finally happened — all 789 changes committed in one step, ending the 6-step cumulative unstaged delta (F27 resolved). This validates §8's worktree + ff-only merge pattern.
+   - Positive: verify output persisted (consistent with Steps 2-7).
+   - Negative: **fifth consecutive step** with defective step-doc mechanical check. Check #1 (`test "$(git status --short | wc -l)" -eq 0`) false-fails on pre-existing untracked `SETUP.md` in the main worktree (not created by this feature). Pattern established: Steps 2, 3, 4, 6, 7 all had broken mechanical checks. The verify phases correctly diagnosed and worked around each one.
+   - Negative: no formal "Acceptance criteria" gate table (F22/F26 continues).
+
+5. **Surprise**: Three surprises.
+   - (a) **GitHub PAT `workflow` scope blocked push.** The `.github/workflows/ci.yml` modification (removing dead system deps) triggered GitHub's PAT scope gate. This is the first auth failure across all 7 steps. The implementation correctly STOPped, reported the exact error, and waited for user token update rather than attempting workarounds. Validates the "do not proceed if check fails" hard rule.
+   - (b) **The main worktree was at `/home/devex/Projects/keel` (sibling directory), not in the current worktree.** This was discovered during the `git checkout main && git merge` step. The step doc's scope didn't account for §8's per-worktree state management, requiring on-the-fly `-C <path>` git operations.
+   - (c) **A single commit for 789 files is large but appropriate.** The step doc correctly anticipated that splitting into multiple commits would "add complexity" and rejected it. The commit message is descriptive and references both structural changes (harness restructuring) and licensing (MPL-2.0).
+
+6. **Test quality**: No tests added — step is N/A. Step doc `## Test mapping` states "No runtime code — test mapping N/A." Confirmed.
+
+### Findings (classified)
+
+- F31 [harness-specific]: Step doc omits the `git merge --ff-only` step required by §8's worktree-based workflow. The step doc assumes "push to origin/main" but the commit is created in a feature worktree and must be merged to `main` in the sibling worktree first.
+- F32 [harness-specific]: GitHub PAT `workflow` scope is required when pushing changes to `.github/workflows/ci.yml` (even deletions/modifications). First auth failure across 7 steps; verify caught it and stopped correctly.
+- F33 [portable]: Fifth consecutive step with defective step-doc mechanical check (Steps 2, 3, 4, 6, 7). Check #1 false-fails on pre-existing untracked `SETUP.md`. The verify phases have developed a pattern of diagnosing and documenting these defects rather than rubber-stamping FAIL.
+- F34 [portable]: No separate "Acceptance criteria" gate table in verify output (F22/F26 continues across Steps 5-7). Low severity for static-file/commit steps but indicates a template drift.
+- F35 [portable]: Single 789-file commit is large but appropriate per step doc's own "Alternatives considered" rejection of multi-commit splitting. Commit message quality is good.
+- F36 [model-specific]: Auth-failure STOP-and-report behavior was correct — the model did not attempt to bypass the PAT scope requirement or invent credentials, instead stopping and asking the user. This validates the "do not proceed if check fails" hard rule under real external friction.
+
