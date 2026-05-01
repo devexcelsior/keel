@@ -28,7 +28,6 @@ const compat: Required<OpenAICompletionsCompat> = {
 	supportsStore: true,
 	supportsDeveloperRole: true,
 	supportsReasoningEffort: true,
-	reasoningEffortMap: {},
 	supportsUsageInStreaming: true,
 	maxTokensField: "max_completion_tokens",
 	requiresToolResultName: false,
