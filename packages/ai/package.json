@@ -91,7 +91,7 @@
 		"api"
 	],
 	"author": "Mario Zechner",
-	"license": "MIT",
+	"license": "MPL-2.0",
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/badlogic/pi-mono.git",

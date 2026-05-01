@@ -1,3 +1,6 @@
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/. */
 // NEVER convert to top-level imports - breaks browser/Vite builds (web-ui)
 let _existsSync: typeof import("node:fs").existsSync | null = null;
 let _homedir: typeof import("node:os").homedir | null = null;
