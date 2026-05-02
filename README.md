@@ -1,16 +1,12 @@
 # Keel
 
-The harness coding agents are built on. Can't be removed.
+The harness coding agents are built on.
 
 ## What
 
 Keel is the stripped-down harness of [pi](https://github.com/badlogic/pi-mono) — just the agent engine (`packages/agent`) and LLM API layer (`packages/ai`). Nothing else.
 
-It's MPL-2.0. Modify it, redistribute it, build proprietary products on it — but the harness itself stays open. Permanently.
-
-## Why
-
-Because a foundation that can be owned will eventually be owned.
+New code is MPL-2.0 — the harness stays open. The original pi-mono code remains MIT.
 
 ## Architecture
 
@@ -19,7 +15,7 @@ Keel is the harness. [hull](https://github.com/devexcelsior/hull) is the TUI, we
 ```
 helm (MIT)         ← methodology, prompts, orchestration
 hull (MIT)         ← TUI, web UI, plugins, CLI
-keel (MPL-2.0)     ← agent engine + LLM API — can't be removed
+keel (MPL-2.0)     ← agent engine + LLM API
 ```
 
 ## Packages
@@ -29,14 +25,8 @@ keel (MPL-2.0)     ← agent engine + LLM API — can't be removed
 | **[@mariozechner/pi-ai](packages/ai)** | Unified multi-provider LLM API (OpenAI, Anthropic, Google, etc.) |
 | **[@mariozechner/pi-agent-core](packages/agent)** | Agent runtime with tool calling and state management |
 
-## Staying current with upstream pi
-
-```bash
-./scripts/sync-upstream.sh
-```
-
-Cherry-picks upstream pi-mono commits that touch `packages/ai` or `packages/agent`.
-
 ## License
 
-MPL-2.0. See [LICENSE](LICENSE).
+New code: MPL-2.0. Upstream code from [pi-mono](https://github.com/badlogic/pi-mono) by Mario Zechner: MIT.
+
+See [LICENSE](LICENSE) for full terms.

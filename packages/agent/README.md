@@ -485,4 +485,4 @@ These low-level streams are observational. They preserve event order, but they d
 
 ## License
 
-MIT
+MPL-2.0. Original code Copyright (c) 2025 Mario Zechner, available under the MIT License. Modifications licensed under MPL-2.0.

@@ -1305,4 +1305,4 @@ Add an entry to `packages/ai/CHANGELOG.md` under `## [Unreleased]`:
 
 ## License
 
-MIT
+MPL-2.0. Original code Copyright (c) 2025 Mario Zechner, available under the MIT License. Modifications licensed under MPL-2.0.
