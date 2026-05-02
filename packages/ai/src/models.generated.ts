@@ -8463,9 +8463,9 @@ export const MODELS = {
 		"minimax-m2.7": {
 			id: "minimax-m2.7",
 			name: "MiniMax M2.7",
-			api: "anthropic-messages",
+			api: "openai-completions",
 			provider: "opencode-go",
-			baseUrl: "https://opencode.ai/zen/go",
+			baseUrl: "https://opencode.ai/zen/go/v1",
 			reasoning: true,
 			input: ["text"],
 			cost: {
@@ -8476,13 +8476,14 @@ export const MODELS = {
 			},
 			contextWindow: 204800,
 			maxTokens: 131072,
-		} satisfies Model<"anthropic-messages">,
+		} satisfies Model<"openai-completions">,
 		"qwen3.5-plus": {
 			id: "qwen3.5-plus",
 			name: "Qwen3.5 Plus",
-			api: "anthropic-messages",
+			api: "openai-completions",
 			provider: "opencode-go",
-			baseUrl: "https://opencode.ai/zen/go",
+			baseUrl: "https://opencode.ai/zen/go/v1",
+			compat: {"thinkingFormat":"qwen"},
 			reasoning: true,
 			input: ["text", "image"],
 			cost: {
@@ -8493,13 +8494,14 @@ export const MODELS = {
 			},
 			contextWindow: 262144,
 			maxTokens: 65536,
-		} satisfies Model<"anthropic-messages">,
+		} satisfies Model<"openai-completions">,
 		"qwen3.6-plus": {
 			id: "qwen3.6-plus",
 			name: "Qwen3.6 Plus",
-			api: "anthropic-messages",
+			api: "openai-completions",
 			provider: "opencode-go",
-			baseUrl: "https://opencode.ai/zen/go",
+			baseUrl: "https://opencode.ai/zen/go/v1",
+			compat: {"thinkingFormat":"qwen"},
 			reasoning: true,
 			input: ["text", "image"],
 			cost: {
@@ -8510,7 +8512,7 @@ export const MODELS = {
 			},
 			contextWindow: 262144,
 			maxTokens: 65536,
-		} satisfies Model<"anthropic-messages">,
+		} satisfies Model<"openai-completions">,
 	},
 	"openrouter": {
 		"ai21/jamba-large-1.7": {
