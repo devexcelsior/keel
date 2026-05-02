@@ -1,8 +1,10 @@
-#!/usr/bin/env tsx
-
 /* This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/. */
+
+
+#!/usr/bin/env tsx
+
 /**
  * Live probe for OpenAI Codex Responses websocket-cached mode.
  *

@@ -1,14 +1,26 @@
-# Keel — AI/Agent Harness
+# Keel
 
-Keel is the core AI and agent runtime extracted from [pi-mono](https://github.com/badlogic/pi-mono).
-It contains the packages you can't remove: the multi-provider LLM API and the agent loop.
-Everything else is hull (the coding agent CLI) and helm (the web interface).
+The harness coding agents are built on. Can't be removed.
 
-Keel is the first piece of the three-repo architecture:
+## What
 
-- **[devexcelsior/keel](https://github.com/devexcelsior/keel)** (this repo) — AI/Agent harness
-- **[devexcelsior/hull](https://github.com/devexcelsior/hull)** — Coding agent CLI and extensions
-- **[devexcelsior/helm](https://github.com/devexcelsior/helm)** — Web UI and chat interfaces
+Keel is the stripped-down harness of [pi](https://github.com/badlogic/pi-mono) — just the agent engine (`packages/agent`) and LLM API layer (`packages/ai`). Nothing else.
+
+It's MPL-2.0. Modify it, redistribute it, build proprietary products on it — but the harness itself stays open. Permanently.
+
+## Why
+
+Because a foundation that can be owned will eventually be owned.
+
+## Architecture
+
+Keel is the harness. [hull](https://github.com/devexcelsior/hull) is the TUI, web UI, plugins, and CLI built on top. [helm](https://github.com/devexcelsior/helm) is the methodology — AGENTS.md, prompt templates, orchestration. Together they form the full pi experience.
+
+```
+helm (MIT)         ← methodology, prompts, orchestration
+hull (MIT)         ← TUI, web UI, plugins, CLI
+keel (MPL-2.0)     ← agent engine + LLM API — can't be removed
+```
 
 ## Packages
 
@@ -17,6 +29,14 @@ Keel is the first piece of the three-repo architecture:
 | **[@mariozechner/pi-ai](packages/ai)** | Unified multi-provider LLM API (OpenAI, Anthropic, Google, etc.) |
 | **[@mariozechner/pi-agent-core](packages/agent)** | Agent runtime with tool calling and state management |
 
+## Staying current with upstream pi
+
+```bash
+./scripts/sync-upstream.sh
+```
+
+Cherry-picks upstream pi-mono commits that touch `packages/ai` or `packages/agent`.
+
 ## License
 
-This project is licensed under the [Mozilla Public License 2.0](LICENSE).
+MPL-2.0. See [LICENSE](LICENSE).

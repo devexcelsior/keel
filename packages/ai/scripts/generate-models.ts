@@ -1,8 +1,10 @@
-#!/usr/bin/env tsx
-
 /* This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/. */
+
+
+#!/usr/bin/env tsx
+
 
 import { writeFileSync } from "fs";
 import { join, dirname } from "path";
@@ -1607,9 +1609,6 @@ async function generateModels() {
 	}
 
 	// Generate TypeScript file
-	let output = `/* This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at https://mozilla.org/MPL/2.0/. */
 
 import type { Model } from "./types.js";
 
